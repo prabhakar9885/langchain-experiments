@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from langchain.agents import create_react_agent, AgentExecutor
+from langchain_community.chat_models import ChatOllama
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from langchain_core.tools import Tool
@@ -9,10 +10,9 @@ from tools.tools import get_profile_url_tavily
 
 
 def search(name: str) -> str:
-    llm = ChatOpenAI(
-        temperature=0,
-        model_name="gpt-4-turbo",
-    )
+    llm = ChatOpenAI(temperature=0, model_name="gpt-4-turbo")
+    # llm = ChatOllama(model="llama3.1")
+
     template = """
     Given the details of a person as "{name_of_person}", do a web-search and return everything you find about the person, organized as bullets.
     Also return the person's LinkedIn profile URL and the Github profile URL.   
